@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# LibreOffice lock files
+.~lock*
+
+# Prevent accidental upload of copyrighed JEDEC documents
+JEP*.pdf
+
