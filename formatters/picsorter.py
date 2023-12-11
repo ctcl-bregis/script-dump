@@ -15,7 +15,12 @@ from PIL import Image, ExifTags
 from PIL import Image
 
 def get_date_taken(path):
-    exif = Image.open(path)._getexif()
+    try:
+        exif = Image.open(path)._getexif()
+    except:
+        print(f"Unknown errror when processing {path}")
+        return None
+
     if not exif:
         return None
         print(f"{path} does not have metadata")
@@ -125,7 +130,8 @@ elif args[1] == "meta":
         else:
             for dirdict in dirdicts:
                 for key, value in dirdict.items():
-                    if get_date_taken(name) == key:
-                        shutil.move(name, f"{value}/{name}")
+                    if os.path.exists(name):
+                        if get_date_taken(name) == key:
+                            shutil.move(name, f"{value}/{name}")
 
 
