@@ -3,13 +3,32 @@
 # Date: October 17, 2023 - December 11, 2023
 # License: CC0
 
-# WARNING: This script may cause data loss in some cases, use at your own risk. This script was made for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 12 that I use.
+# WARNING: This script may cause data loss in some cases, use at your own risk. 
+# The "name" option is for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 12 that I use.
+# The "meta" option is for Apple devices that have date information in the file's EXIF/metadata.
 
-import os, shutil
+import os, shutil, sys
 from os import listdir
 from os.path import isfile, join
+from PIL import Image, ExifTags
+
+from PIL import Image
+
+def get_date_taken(path):
+    exif = Image.open(path)._getexif()
+    if not exif:
+        return None
+        print(f"{path} does not have metadata")
+    try:
+        return exif[36867][:10]
+    except KeyError:
+        print(f"{path} does not have date metadata")
+        return None
 
 mypath = "."
+
+# Get all file names
+onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
 
 months = {
     "01": "jan",
@@ -26,37 +45,87 @@ months = {
     "12": "dec"
 }
 
-# Get all file names
-onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+args = sys.argv
+# Check how many arguments
+if len(args) > 2:
+    print(f"WARNING: Arguments after {sys.argv[1]} ignored")
+elif len(args) < 2:
+    print("ERROR: Not enough arguments")
+    print("Usage: picsorter.py <name|meta>")
+    sys.exit()
 
-# Make sure only images or video are in the list
-tmplst = []
-for name in onlyfiles:
-    if name.endswith(".jpg") or name.endswith(".png") or name.endswith(".mp4"):
-        tmplst.append(name)
-onlyfiles = tmplst
+if args[1] == "name":
+    # Make sure only images or video are in the list
+    tmplst = []
+    for name in onlyfiles:
+        if name.endswith(".jpg") or name.endswith(".png") or name.endswith(".mp4"):
+            tmplst.append(name)
+    onlyfiles = tmplst
 
-# Get the dates from the file names
-dates = []
-for name in onlyfiles:
-    name = name[2:10]
-    if name not in dates:
-        dates.append(name)
+    # Get the dates from the file names
+    dates = []
+    for name in onlyfiles:
+        name = name[2:10]
+        if name not in dates:
+            dates.append(name)
 
-dirdicts = []
-for date in dates:
-    dirdicts.append({date: f"{months[date[4:6]]}_{date[6:8]}_{date[:4]}"})
+    dirdicts = []
+    for date in dates:
+        dirdicts.append({date: f"{months[date[4:6]]}_{date[6:8]}_{date[:4]}"})
 
-for dirname in dirdicts:
-    dirname = list(dirname.values())[0]
+    for dirname in dirdicts:
+        dirname = list(dirname.values())[0]
+        try:
+            os.mkdir(dirname)
+        except FileExistsError:
+            print(f"Directory {dirname} already exists.")
+            pass
+
+    for name in onlyfiles:
+        for dirdict in dirdicts:
+            for key, value in dirdict.items():
+                if name[2:10] == key:
+                    shutil.move(name, f"{value}/{name}")
+elif args[1] == "meta":
     try:
-        os.mkdir(dirname)
+        os.mkdir("nometa/")
     except FileExistsError:
-        print(f"Directory {dirname} already exists.")
         pass
 
-for name in onlyfiles:
-    for dirdict in dirdicts:
-        for key, value in dirdict.items():
-            if name[2:10] == key:
-                shutil.move(name, f"{value}/{name}")
+    tmplst = []
+    for name in onlyfiles:
+        if name.endswith(".JPG") or name.endswith(".PNG"):
+            tmplst.append(name)
+    onlyfiles = tmplst
+
+    dates = []
+    for name in onlyfiles:
+        date = get_date_taken(name)
+
+        if date != None:
+            if date not in dates:
+                dates.append(date)
+    
+    dirdicts = []
+    for date in dates:
+        splitdate = date.split(":")
+        dirdicts.append({date: f"{months[splitdate[1]]}_{splitdate[2]}_{splitdate[0]}"})
+
+    for dirname in dirdicts:
+        dirname = list(dirname.values())[0]
+        try:
+            os.mkdir(dirname)
+        except FileExistsError:
+            print(f"Directory {dirname} already exists.")
+            pass
+
+    for name in onlyfiles:
+        if get_date_taken(name) == None:
+            shutil.move(name, f"nometa/{name}")
+        else:
+            for dirdict in dirdicts:
+                for key, value in dirdict.items():
+                    if get_date_taken(name) == key:
+                        shutil.move(name, f"{value}/{name}")
+
+
