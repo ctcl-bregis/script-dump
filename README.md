@@ -7,3 +7,20 @@ Licensing may vary from each file. If not specified in the file or directory, th
 In scripts that have their own directory, a separate "LICENSE" file is included
 
 In scripts that do not have their own directory, the license is included in the file
+
+## Directories
+
+### converters
+These scripts convert one type of data, may it be files, to another format.
+
+### formatters
+These scripts sort files, generate formats or generate templates
+
+### minecraft
+These scripts are for use in the Sandbox game Minecraft
+
+The subdirectory "cc" is for scripts that are used with the ComputerCraft mod and are almost always Lua.
+
+### system
+These scripts are for system management and setup
+
