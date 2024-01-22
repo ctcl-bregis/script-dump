@@ -11,9 +11,11 @@ for pdf in os.listdir("."):
     if pdf.endswith(".pdf"):
         filelist.append(pdf[:-4])
 
-print(filelist)
-
-for pdf in filelist:
-    os.system(f"qpdf --decrypt \"{pdf}.pdf\" \"{pdf}_fixed.pdf\"")
-
+try:
+    os.mkdir("decrypted/")
+except Exception as err:
+    print(f"Directory creation failed: {err}")
+else:
+    for pdf in filelist:
+        os.system(f"qpdf --decrypt \"{pdf}.pdf\" \"decrypted/{pdf}.pdf\"")
 
