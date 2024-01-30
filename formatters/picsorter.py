@@ -1,6 +1,6 @@
-# picsorter.py - CTCL 2023
+# picsorter.py - CTCL 2023-2024
 # Purpose: Sorts pictures into directories based on file name
-# Date: October 17, 2023 - December 11, 2023
+# Date: October 17, 2023 - January 29, 2024
 # License: CC0
 
 # WARNING: This script may cause data loss in some cases, use at your own risk. 
@@ -11,8 +11,6 @@ import os, shutil, sys
 from os import listdir
 from os.path import isfile, join
 from PIL import Image, ExifTags
-
-from PIL import Image
 
 def get_date_taken(path):
     try:
