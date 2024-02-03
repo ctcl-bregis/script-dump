@@ -134,3 +134,5 @@ dmypy.json
 # Prevent accidental upload of copyrighed JEDEC documents
 JEP*.pdf
 
+# Temporary
+converters/bcc2ics.py

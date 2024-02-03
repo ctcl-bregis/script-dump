@@ -1,7 +1,7 @@
 #!/bin/bash
 # Linux Mint Post-Installation Setup - CTCL 2024
 # Tested with Linux Mint 21.3 "Virginia"
-# Date: January 17, 2024
+# Date: January 17, 2024 - February 2, 2024
 
 # Packages to remove:
 # apport - Telemetry
@@ -50,3 +50,8 @@ rm -r $HOME/.cache/thumbnails/fail
 ln -s /dev/null $HOME/.cache/thumbnails/large
 ln -s /dev/null $HOME/.cache/thumbnails/normal
 ln -s /dev/null $HOME/.cache/thumbnails/fail
+
+# Remove keyring
+sudo apt purge seahorse libpam-gnome-keyring
+sudo rm -rf ~/.local/share/keyrings 
+keyring --disable
