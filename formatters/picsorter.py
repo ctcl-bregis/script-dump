@@ -1,10 +1,11 @@
 # picsorter.py - CTCL 2023-2024
 # Purpose: Sorts pictures into directories based on file name
-# Date: October 17, 2023 - January 29, 2024
+# Created: October 17, 2023
+# Modified: February 16, 2024
 # License: CC0
 
 # WARNING: This script may cause data loss in some cases, use at your own risk. 
-# The "name" option is for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 12 that I use.
+# The "name" option is for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 13 that I use.
 # The "meta" option is for Apple devices that have date information in the file's EXIF/metadata.
 
 import os, shutil, sys
@@ -61,8 +62,9 @@ if args[1] == "name":
     # Make sure only images or video are in the list
     tmplst = []
     for name in onlyfiles:
-        if name.endswith(".jpg") or name.endswith(".png") or name.endswith(".mp4"):
+        if (name.endswith(".jpg") or name.endswith(".png") or name.endswith(".mp4")) and (name.startswith("P_") or name.startswith("V_")):
             tmplst.append(name)
+
     onlyfiles = tmplst
 
     # Get the dates from the file names
