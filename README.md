@@ -16,11 +16,14 @@ These scripts convert one type of data, may it be files, to another format.
 ### formatters
 These scripts sort files, generate formats or generate templates
 
-### minecraft
-These scripts are for use in the Sandbox game Minecraft
+### games
+These scripts are for in-game programming
 
-The subdirectory "cc" is for scripts that are used with the ComputerCraft mod and are almost always Lua.
+#### minecraft_cc
+This direcotry is for scripts that are used with the ComputerCraft mod for Minecraft and are almost always Lua.
 
 ### system
 These scripts are for system management and setup
 
+### themes
+This directory is for themes that are in the form of a single file such as themes for Geany. VSCode/Codium themes may have their own repository.
