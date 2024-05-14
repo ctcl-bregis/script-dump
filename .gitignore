@@ -131,5 +131,5 @@ dmypy.json
 # LibreOffice lock files
 .~lock*
 
-# Prevent accidental upload of copyrighed JEDEC documents
+# Prevent accidental upload of copyrighted JEDEC documents
 JEP*.pdf
