@@ -21,8 +21,11 @@ path = args.p
 blocksize = args.s
 union = args.union
 
-filelist = [f for f in listdir(path) if isfile(join(path, f))]
-filelist = [f for f in filelist if f.endswith(".c")]
+if isfile(path): 
+    filelist = [path]
+else:
+    filelist = [f for f in listdir(path) if isfile(join(path, f))]
+    filelist = [f for f in filelist if f.endswith(".c")]
 
 def chunks(lst, n):
     for i in range(0, len(lst), n):
@@ -60,7 +63,7 @@ def processfile(filepath):
     d.save_svg(newfilepath)
 
     if union: 
-        os.system(f"inkscape --export-type=svg --export-plain-svg --export-overwrite -g --batch-process {filepath} --verb='EditSelectAll;SelectionUnion;FileSave'")
+        os.system(f"inkscape --export-type=svg --export-plain-svg --export-overwrite -g --batch-process {newfilepath} --verb='EditSelectAll;SelectionUnion;FileSave'")
 
 
 for filepath in filelist:
