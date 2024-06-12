@@ -1,9 +1,12 @@
 -- CC HTTP Text to Monitor - CTCL 2024
 -- Purpose: Reads plaintext from a HTTP server and displays it on a monitor
--- Date: March 29, 2024
+-- Created: March 29, 2024
+-- Modified: June 3, 2024
  
-local monitor = "left";
-local url = "URL goes here";
+-- Set this to the target monitor
+local side = "left";
+-- Set this to the URL to display
+local url = "";
  
 function updatemonitor (monitordevice) 
     if monitordevice then
@@ -16,16 +19,17 @@ function updatemonitor (monitordevice)
         monitordevice.clear();
         monitordevice.setCursorPos(1, 1);
         monitordevice.setTextScale(0.5);
-        monitordevice.write(content);
+        monitordevice.setCursorBlink(false);
+        for s in content:gmatch("[^\r\n]+") do
+            monitordevice.write(s);
+            x, y = monitordevice.getCursorPos();
+            monitordevice.setCursorPos(1, y + 1);
+        end
     else
         error("Monitor not found");
     end
 end
+
+monitor = peripheral.wrap(side);
+updatemonitor(monitor);
  
-while true do
-    event, side, xpos, ypos = os.pullEvent("monitor_touch")
-    print("Updating " .. side);
-    monitor = peripheral.wrap(side);
-    updatemonitor(monitor);
-    print("Updated " .. side);
-end
