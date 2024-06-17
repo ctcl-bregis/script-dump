@@ -133,3 +133,8 @@ dmypy.json
 
 # Prevent accidental upload of copyrighted JEDEC documents
 JEP*.pdf
+
+# Other stuff
+.vscode
+*.ttf
+*.bdf
