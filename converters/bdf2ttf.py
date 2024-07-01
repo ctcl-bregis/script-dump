@@ -1,26 +1,23 @@
 # BDF to pixel art TTF font - CTCL 2024
 # Created: June 17, 2024
-# Modified: June 17, 2024
+# Modified: June 24, 2024
 # Purpose: Converts BDF format fonts into vector TTF fonts with glyphs made up of squares
 
 # Warning: The following code is a total hack and may be unreadable
+# Warning 2: Currently, this script only works on Linux or other UNIX-like systems with /dev/shm 
 
 from bdfparser import Font
-from os import listdir
-from os.path import isfile, join
 import drawsvg as dw
 import os
-import argparse
 import sys
-import os.path
-import json
 import fontforge
+import argparse
 
-IMPORT_OPTIONS = ('removeoverlap', 'correctdir')
+parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files")
+parser.add_argument("-p", type = str, help = "Path to file")
+args = parser.parse_args()
 
-infile = "./Pixel-18x18-condensed-24.bdf"
-
-kerning_pix = 3
+infile = args.p
 
 # TODO: Add a way to specify font file in command line
 bdffont = Font(infile)
@@ -30,19 +27,19 @@ svgglyphs = {}
 for x, y in glyphs.items():
     glyph = bdffont.glyphbycp(y[1])
 
-    glyph_width = glyph.meta["bbw"]
+    glyph_width = glyph.meta["dwx0"]
     glyph_height = int(bdffont.props["pixel_size"])
 
     if glyph_width > 1:
-        glyphrep = str(glyph.draw().crop(glyph.meta["bbw"], glyph_height, glyph.meta["bbxoff"], glyph.meta["bbyoff"]))
+        glyphrep = str(glyph.draw().crop(glyph.meta["bbw"], glyph_height, glyph.meta["bbxoff"], 0))
     
         rows = glyphrep.split("\n")
     
         d = dw.Drawing(glyph.meta["bbw"] * 64, glyph_height * 64)
     
-        ypos = (64 * abs(y[5]))
-        print(ypos)
+        ypos = 0
         xpos = 0
+
         for row in rows:
             for pix in row:
                 if pix == "#":
@@ -51,14 +48,11 @@ for x, y in glyphs.items():
             xpos = 0
             ypos += 64
     
-        newfilepath = y[0] + ".svg"
-    
-        if not os.path.exists(newfilepath):
-            d.save_svg(newfilepath)
+        newfilepath = "/dev/shm/" + y[0] + ".svg"
+        
+        d.save_svg(newfilepath)
 
-            os.system(f"inkscape --export-type=svg --export-plain-svg --export-overwrite -g --batch-process {newfilepath} --verb='EditSelectAll;SelectionUnion;FileSave'")
-
-        svgglyphs[y[1]] = {"file": y[0] + ".svg", "meta": glyph.meta}
+        svgglyphs[y[1]] = {"file": newfilepath, "meta": glyph.meta}
 
 font = fontforge.font()
 font.fontname = bdffont.props["font_name"]
@@ -69,8 +63,11 @@ font.descent = 64 * int(bdffont.props["font_descent"])
 
 for cp, data in svgglyphs.items():
     g = font.createMappedChar(cp)
-    g.importOutlines(data["file"], IMPORT_OPTIONS)
-    g.width = 64 * (int(data["meta"]["bbw"]) + kerning_pix)
+    g.importOutlines(data["file"], ('removeoverlap', 'correctdir'))
+    g.width = 64 * (int(data["meta"]["dwx0"]))
     g.removeOverlap()
+
+for cp, data in svgglyphs.items():
+    os.remove(data["file"])
 
 font.generate(infile[:-3] + "ttf")
