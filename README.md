@@ -27,5 +27,3 @@ These scripts are for system management and setup
 
 ### themes
 This directory is for themes that are in the form of a single file such as themes for Geany. VSCode/Codium themes may have their own repository.
-
-The software that the theme is meant for is listed in the file name.
