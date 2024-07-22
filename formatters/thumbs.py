@@ -36,10 +36,8 @@ for path in filelist:
     # Center the resized sprite
     if sprite.size[0] > sprite.size[1]:
         coords = (64, 256 - (sprite.size[1] // 2))
-        print(f"0 > 1: {path}")
     elif sprite.size[1] > sprite.size[0]:
         coords = (256 - (sprite.size[0] // 2), 64)
-        print(f"1 > 0: {path}")
     else: 
         coords = (64, 64)
 
