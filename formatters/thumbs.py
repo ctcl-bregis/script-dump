@@ -9,7 +9,7 @@ import os
 filelist = [i for i in os.listdir("sprites") if i.endswith(".png")]
 
 file_bl = [
-    
+    "sp_bullet.png"
 ]
 
 if len(file_bl) > 0:
@@ -26,10 +26,22 @@ for path in filelist:
     sprite = Image.open(os.path.join("sprites", path))
     thumb = Image.new("RGB", (512,512), (0,0,0,255))
 
+
+    # thumbnail can only resize images to sizes smaller than the original so the image is scaled up first then scaled back down with thumbnail()
     wpercent = (512 / float(sprite.size[0]))
     hsize = int((float(sprite.size[1]) * float(wpercent)))
     sprite = sprite.resize((512, hsize), Image.Resampling.NEAREST)
     sprite.thumbnail((384, 384), Image.Resampling.NEAREST)
-    thumb.paste(sprite, (64, 64))
 
-    thumb.save(os.path.join("thumbs", f"thumb_{path}"))
+    # Center the resized sprite
+    if sprite.size[0] > sprite.size[1]:
+        coords = (64, 256 - (sprite.size[1] // 2))
+        print(f"0 > 1: {path}")
+    elif sprite.size[1] > sprite.size[0]:
+        coords = (256 - (sprite.size[0] // 2), 64)
+        print(f"1 > 0: {path}")
+    else: 
+        coords = (64, 64)
+
+    thumb.paste(sprite, coords)
+    thumb.save(os.path.join("thumbs", f"th_{path}"))
