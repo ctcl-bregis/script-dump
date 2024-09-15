@@ -1,6 +1,6 @@
 # BDF to pixel art TTF font - CTCL 2024
 # Created: June 17, 2024
-# Modified: July 5, 2024
+# Modified: September 15, 2024
 # Purpose: Converts BDF format fonts into vector TTF fonts with glyphs made up of squares
 
 # Warning: The following code is a total hack and may be unreadable
@@ -19,7 +19,6 @@ args = parser.parse_args()
 
 infile = args.p
 
-# TODO: Add a way to specify font file in command line
 bdffont = Font(infile)
 glyphs = bdffont.glyphs
 
@@ -66,9 +65,22 @@ for x, y in glyphs.items():
 
 font = fontforge.font()
 font.encoding = "UnicodeFull"
-font.fontname = bdffont.props["font_name"]
-font.familyname = bdffont.props["face_name"]
-font.fullname = bdffont.headers["fontname"]
+
+try:
+    font.fontname = bdffont.props["font_name"]
+except:
+    font.fontname = ""
+
+try:
+    font.familyname = bdffont.props["face_name"]
+except:
+    font.familyname = ""
+
+try:
+    font.fullname = bdffont.headers["fontname"]
+except:
+    font.fullname = ""
+
 font.ascent = 64 * int(bdffont.props["font_ascent"])
 font.descent = 64 * int(bdffont.props["font_descent"])
 

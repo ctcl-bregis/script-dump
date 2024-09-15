@@ -1,11 +1,12 @@
 # picsorter.py - CTCL 2023-2024
 # Purpose: Sorts pictures into directories based on file name
 # Created: October 17, 2023
-# Modified: February 16, 2024
+# Modified: September 1, 2024
 # License: CC0
 
 # WARNING: This script may cause data loss in some cases, use at your own risk. 
 # The "name" option is for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 13 that I use.
+# The "namenums" option is for Android devices that use the YYYYMMDD_HHMMSS format such as the Samsung Galaxy S7 SM-G930F
 # The "meta" option is for Apple devices that have date information in the file's EXIF/metadata.
 
 import os, shutil, sys
@@ -91,6 +92,37 @@ if args[1] == "name":
             for key, value in dirdict.items():
                 if name[2:10] == key:
                     shutil.move(name, f"{value}/{name}")
+elif args[1] == "namenums":
+    tmplst = []
+    for name in onlyfiles:
+        if (name.endswith(".jpg") or name.endswith(".png") or name.endswith(".mp4")):
+            tmplst.append(name)
+    onlyfiles = tmplst
+
+    # Get the dates from the file names
+    dates = []
+    for name in onlyfiles:
+        name = name[:8]
+        if name not in dates:
+            dates.append(name)
+    
+    dirdicts = []
+    for date in dates:
+        dirdicts.append({date: f"{months[date[4:6]]}_{date[6:8]}_{date[:4]}"})
+    
+    for dirname in dirdicts:
+        dirname = list(dirname.values())[0]
+        try:
+            os.mkdir(dirname)
+        except FileExistsError:
+            print(f"Directory {dirname} already exists.")
+            pass
+
+    for name in onlyfiles:
+        for dirdict in dirdicts:
+            for key, value in dirdict.items():
+                if name[:8] == key:
+                    shutil.move(name, f"{value}/{name}")
 elif args[1] == "meta":
     try:
         os.mkdir("nometa/")
@@ -99,7 +131,7 @@ elif args[1] == "meta":
 
     tmplst = []
     for name in onlyfiles:
-        if name.endswith(".JPG") or name.endswith(".PNG"):
+        if name.lower().endswith(".JPG") or name.lower().endswith(".PNG"):
             tmplst.append(name)
     onlyfiles = tmplst
 
@@ -133,5 +165,4 @@ elif args[1] == "meta":
                     if os.path.exists(name):
                         if get_date_taken(name) == key:
                             shutil.move(name, f"{value}/{name}")
-
 

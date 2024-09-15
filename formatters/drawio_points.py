@@ -1,7 +1,14 @@
 # draw.io connection point style generator - CTCL 2024
 # Purpose: Creates list of connection points for each side of a rectangle
 # Created: July 18, 2024
-# Modifeid: July 18, 2024
+# Modifeid: July 19, 2024
+import argparse
+
+parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files")
+parser.add_argument("w", metavar = "W", type = int, help = "Width")
+parser.add_argument("h", metavar = "H", type = int, help = "Height")
+parser.add_argument("g", metavar = "G", type = int, default = 10, help = "Grid")
+args = parser.parse_args()
 
 # Right = 1,0,0,0,x
 # Left = 0,0,0,0,x
@@ -9,8 +16,8 @@
 # Bottom = 0,1,0,x,0
 
 # size = [width, height]
-size = [360, 200];
-grid = 10;
+size = [args.w,args.h];
+grid = args.g;
 
 right = []
 left = []
