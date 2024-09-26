@@ -56,7 +56,7 @@ if len(args) > 2:
     print(f"WARNING: Arguments after {sys.argv[1]} ignored")
 elif len(args) < 2:
     print("ERROR: Not enough arguments")
-    print("Usage: picsorter.py <name|meta>")
+    print("Usage: picsorter.py <name|namenums|meta>")
     sys.exit()
 
 if args[1] == "name":

@@ -9,7 +9,7 @@ import os
 filelist = [i for i in os.listdir("sprites") if i.endswith(".png")]
 
 file_bl = [
-    "sp_bullet.png"
+
 ]
 
 if len(file_bl) > 0:

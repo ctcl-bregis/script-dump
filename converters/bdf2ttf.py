@@ -1,6 +1,6 @@
-# BDF to pixel art TTF font - CTCL 2024
+# BDF to pixel TTF font - CTCL 2024
 # Created: June 17, 2024
-# Modified: September 15, 2024
+# Modified: September 22, 2024
 # Purpose: Converts BDF format fonts into vector TTF fonts with glyphs made up of squares
 
 # Warning: The following code is a total hack and may be unreadable
@@ -14,7 +14,11 @@ import fontforge
 import argparse
 
 parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files")
-parser.add_argument("-p", type = str, help = "Path to file")
+parser.add_argument(type = str, help = "Path to file", required = True)
+# Overrides value in BDF file
+parser.add_argument(type = str, "-f", "--family-name", required = False)
+# Overrides value in BDF file
+parser.add_argument(type = str, "-t", "--font-type", help = "Font type, e.g. \"Bold\", \"Normal\"", required = False)
 args = parser.parse_args()
 
 infile = args.p
@@ -66,20 +70,21 @@ for x, y in glyphs.items():
 font = fontforge.font()
 font.encoding = "UnicodeFull"
 
+
 try:
     font.fontname = bdffont.props["font_name"]
 except:
-    font.fontname = ""
+    font.fontname = infile[:-3]
 
 try:
     font.familyname = bdffont.props["face_name"]
 except:
-    font.familyname = ""
+    font.familyname = infile[:-3]
 
 try:
     font.fullname = bdffont.headers["fontname"]
 except:
-    font.fullname = ""
+    font.fullname = infile[:-3]
 
 font.ascent = 64 * int(bdffont.props["font_ascent"])
 font.descent = 64 * int(bdffont.props["font_descent"])
