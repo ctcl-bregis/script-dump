@@ -7,11 +7,11 @@ import sys
 import os
 from icalendar import Calendar
 
-titlebl = ""
+titlebl = "ART.116"
 
 inp = sys.stdin
 
-cal = Calendar.from_ical(inp)
+cal = Calendar.from_ical(inp.read())
 newcal = Calendar()
 for prop in cal.property_items(recursive=False):
     newcal.add(prop[0], prop[1])
@@ -21,4 +21,4 @@ for component in cal.walk():
         if not titlebl in str(component.get("SUMMARY")):
             newcal.add_component(component)
 
-print(newcal.to_ical())
+print(newcal.to_ical().decode("utf-8"))
