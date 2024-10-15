@@ -1,7 +1,7 @@
 # picsorter.py - CTCL 2023-2024
 # Purpose: Sorts pictures into directories based on file name
 # Created: October 17, 2023
-# Modified: September 1, 2024
+# Modified: October 14, 2024
 # License: CC0
 
 # WARNING: This script may cause data loss in some cases, use at your own risk. 
@@ -95,7 +95,7 @@ if args[1] == "name":
 elif args[1] == "namenums":
     tmplst = []
     for name in onlyfiles:
-        if (name.endswith(".jpg") or name.endswith(".png") or name.endswith(".mp4")):
+        if (name.lower().endswith(".jpg") or name.lower().endswith(".png") or name.lower().endswith(".mp4")):
             tmplst.append(name)
     onlyfiles = tmplst
 
@@ -131,7 +131,7 @@ elif args[1] == "meta":
 
     tmplst = []
     for name in onlyfiles:
-        if name.lower().endswith(".JPG") or name.lower().endswith(".PNG"):
+        if name.lower().endswith(".jpg") or name.lower().endswith(".png"):
             tmplst.append(name)
     onlyfiles = tmplst
 
