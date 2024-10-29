@@ -1,37 +1,29 @@
 #!/bin/bash
 # Linux Mint Post-Installation Setup - CTCL 2024
-# Tested with Linux Mint 21.3 "Virginia"
-# Date: January 17, 2024 - February 2, 2024
-
-# Packages to remove:
-# apport - Telemetry
-# deluge - Unneeded
-# hexchat - Unneeded
-# network-manager-config-connectivity-ubuntu - DNS spam, could be viewed as telemetry
-# redshift - Unneeded
-# rhythmbox - Unneeded
-# thunderbird - Unneeded
-# timeshift - Unneeded
-# transmission - Unneeded
-# whoopsie - Telemetry
-# youtube-dl - Unneeded, replaced
+# Tested with Linux Mint 22 Cinnamon
+# Date: January 17, 2024 - October 17, 2024
 
 sudo apt purge \
 apport \
+celluloid \
 deluge \
+drawing \
 hexchat \
 hypnotix \
+mintchat \
 network-manager-config-connectivity-ubuntu \
+pix \
 redshift \
 rhythmbox \
 thunderbird \
 timeshift \
-transmission \
+transmission-gtk \
+warpinator \
 whoopsie \
-youtube-dl 
+youtube-dl
 
 # Packages to install
-# edac-utils - Most of CTCL equipment uses ECC memory and being able to monitor stability is important
+# edac-utils - Important for systems with ECC memory
 # git - Important utility
 # lshw - Important utility
 
