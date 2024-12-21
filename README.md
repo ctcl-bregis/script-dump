@@ -11,9 +11,7 @@ In scripts that do not have their own directory, the license is included in the 
 ## Directories
 
 ### analytics
-These scripts put data into graphs, gather data or otherwise analyze data.
-
-These scripts are not data collection tools as one would possibly think when hearing the term "analytics".
+These scripts are for analyzing data.
 
 ### converters
 These scripts convert one type of data, may it be files, to another format.
