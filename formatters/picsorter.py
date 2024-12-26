@@ -2,7 +2,7 @@
 # Purpose: Sorts pictures into directories based on file name
 # Created: October 17, 2023
 # Modified: October 14, 2024
-# License: CC0
+# License: The Unlicense
 
 # WARNING: This script may cause data loss in some cases, use at your own risk. 
 # The "name" option is for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 13 that I use.
