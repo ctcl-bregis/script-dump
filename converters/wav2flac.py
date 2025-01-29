@@ -1,6 +1,7 @@
-# wav2flac - CTCL 2023
-# October 2, 2023
-# Licensed CC0
+# wav2flac.py
+# Created: October 2, 2023
+# Modified: January 29, 2025
+# Purpose: Converts .wav files to .flac
 
 from pydub import AudioSegment
 from os import listdir

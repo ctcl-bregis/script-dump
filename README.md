@@ -1,8 +1,10 @@
 # script-dump
 This repository contains any scripts that generally serve a single purpose and are not large enough to get their own repository.
 
+All scripts were written in Linux environments where Python is often expected to be preinstalled.
+
 ## Licensing
-Licensing may vary from each file. If not specified in the file or directory, the content is released under the Creative Commons Zero Universal 1.0 license.
+Licensing may vary from each file. If not specified in the file or directory, the content is released under The Unlicense where it is effectively public domain.
 
 In scripts that have their own directory, a separate "LICENSE" file is included
 
@@ -23,7 +25,7 @@ These scripts sort files, generate formats or generate templates
 These scripts are for in-game programming
 
 #### minecraft_cc
-This direcotry is for scripts that are used with the ComputerCraft mod for Minecraft and are almost always Lua.
+This directory is for scripts that are used with the ComputerCraft mod for Minecraft and are almost always Lua.
 
 ### system
 These scripts are for system management and setup

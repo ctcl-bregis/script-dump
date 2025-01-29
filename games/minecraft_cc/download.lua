@@ -1,9 +1,10 @@
--- CC download.lua - CTCL 2024
+-- download.lua
 -- Purpose: Bare minimum HTTP downloader for ComputerCraft, minified for manual entry
 -- Created: October 25, 2024
--- Modified: October 25, 2024
--- License: The Unlicense
+-- Modified: January 29, 2025
 
 a,b=...
-d=http.get(a).readAll()
+-- readAll() and http.get() seems to be required for older versions of ComputerCraft
+r=http.get(a)
+d=r.readAll()
 fs.open(b,"w").write(d)

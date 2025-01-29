@@ -1,9 +1,9 @@
-# Piskel C to SVG converter - CTCL 2024
-# Created: May 13, 2024
-# Modified: June 12, 2024
+# piskelc2svg.py
 # Purpose: Converts C array export from Piskel to SVG files made up of squares
+# Created: May 13, 2024
+# Modified: January 29, 2025
 
-# NOTE: Currently just supports files with one frame
+# NOTE: Currently supports files with only one frame
 
 from os import listdir
 from os.path import isfile, join
@@ -40,7 +40,7 @@ def processfile(filepath):
 
     data = "".join(content[10:]).replace("\n", "").split("}")[0].split(", ")
     data = [pix[2:] for pix in data]
-    # Data is exported for little-endian CPU architectures and must be "reversed"
+    # Data is exported for little-endian CPU architectures
     tmp = []
     for pix in data:
         ba = bytearray.fromhex(pix)
@@ -70,7 +70,6 @@ def processfile(filepath):
 
     if union: 
         os.system(f"inkscape --export-type=svg --export-plain-svg --export-overwrite -g --batch-process {newfilepath} --verb='EditSelectAll;SelectionUnion;FileSave'")
-
 
 for filepath in filelist:
     processfile(filepath)

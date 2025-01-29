@@ -1,14 +1,14 @@
--- CC HTTP Text to Monitor - CTCL 2024
+-- http2monitor.lua
 -- Purpose: Reads plaintext from a HTTP server and displays it on a monitor
 -- Created: March 29, 2024
--- Modified: June 3, 2024
- 
+-- Modified: January 29, 2025
+
 -- Set this to the target monitor
 local side = "left";
 -- Set this to the URL to display
 local url = "";
- 
-function updatemonitor (monitordevice) 
+
+function updatemonitor (monitordevice)
     if monitordevice then
         rq = http.get(url);
         if rq.getResponseCode() > 300 then
@@ -32,4 +32,4 @@ end
 
 monitor = peripheral.wrap(side);
 updatemonitor(monitor);
- 
+

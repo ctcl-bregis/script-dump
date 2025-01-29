@@ -1,6 +1,7 @@
-# 8-bit to 6-bit Color Depth Converter - CTCL 2024
+# 8to6bit.py
+# Purpose: Converts 8-bit values to 6-bit values
 # Created: September 15, 2024
-# Modified: September 26, 2024
+# Modified: January 29, 2025
 
 # Formulas from: https://threadlocalmutex.com/?p=48
 

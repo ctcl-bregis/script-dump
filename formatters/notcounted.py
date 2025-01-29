@@ -1,8 +1,7 @@
-# notcounted.py - CTCL 2024
+# notcounted.py
 # Purpose: Formats a list of GitHub repositories to exclude from Most Used Languages
 # Created: December 25, 2024
-# Modified: December 25, 2024
-# License: The Unlicense
+# Modified: January 29, 2025
 
 # Example list
 repos = [
@@ -17,6 +16,6 @@ repos = [
     "pixel-fonts", # C files only store glyphs
 ]
 
-print(f"https://github-readme-stats.vercel.app/api/top-langs/?username=ctcl-bregis&size_weight=1&count_weight=0&theme=transparent&langs_count=8&exclude_repo={",".join(repos)}")
+base_url = "https://github-readme-stats.vercel.app/api/top-langs/?username=ctcl-bregis&size_weight=1&count_weight=0&theme=transparent&langs_count=8&exclude_repo="
 
-print(f"Not Counted: {", ".join(repos)}")
+print(base_url + ",".join(repos))

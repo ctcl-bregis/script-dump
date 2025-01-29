@@ -25,7 +25,7 @@
         "memory",
         {
             "type": "physicalmemory",
-            "format": "{size} {type}-{max-speed} {?is-ecc-enabled}ECC{?} {form-factor} - {vendor} {part-number}"
+            "format": "{size} {type}-{max-speed}{?is-ecc-enabled} ECC{?} {form-factor} - {vendor} {part-number}"
         },
         "disk",
         //"physicaldisk",

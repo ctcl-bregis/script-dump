@@ -1,9 +1,7 @@
-# mmcassets.py - CTCL 2024
+# mmcassets.py
 # Purpose: Renames and copies downloaded MultiMC Minecraft assets to a new directory
 # Created: December 25, 2024
-# Modified: December 25, 2024
-# License: The Unlicense
-
+# Modified: January 29, 2025
 
 import os
 import json

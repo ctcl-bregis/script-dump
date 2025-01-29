@@ -1,5 +1,6 @@
-# QPDF PDF Restriction Remover - CTCL 2024
-# Date: January 21, 2024 - January 26, 2024
+# qpdf_batch_decrypt.py
+# Created: January 21, 2024 
+# Modified: January 29, 2025
 # Purpose: Uses qpdf --decrypt to remove restrictions from PDF files
 
 # NOTE: Requires 'qpdf' to be installed on the system. Use on Windows platforms is untested.

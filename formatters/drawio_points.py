@@ -1,4 +1,4 @@
-# draw.io connection point style generator - CTCL 2024
+# drawio_points.py
 # Purpose: Creates list of connection points for each side of a rectangle
 # Created: July 18, 2024
 # Modifeid: July 19, 2024
@@ -16,8 +16,8 @@ args = parser.parse_args()
 # Bottom = 0,1,0,x,0
 
 # size = [width, height]
-size = [args.w,args.h];
-grid = args.g;
+size = [args.w,args.h]
+grid = args.g
 
 right = []
 left = []

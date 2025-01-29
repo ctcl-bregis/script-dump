@@ -1,20 +1,20 @@
-# Sprite to Thumbnails - CTCL 2024
+# Sprite to Thumbnails
 # Purpose: Converts sprites into thumbnails
 # Created: July 22, 2024
-# Modified: July 22, 2024
+# Modified: January 29, 2025
 
 from PIL import Image
 import os
 
 filelist = [i for i in os.listdir("sprites") if i.endswith(".png")]
 
-file_bl = [
+exclude = [
 
 ]
 
-if len(file_bl) > 0:
+if len(exclude) > 0:
     for path in filelist:
-        if path in file_bl:
+        if path in exclude:
             filelist.remove(path)
 
 if not os.path.exists("thumbs"):

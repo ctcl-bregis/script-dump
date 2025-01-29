@@ -1,6 +1,6 @@
-# CalDAV to Task List Text - CTCL 2024
+# CalDAV to Task List Text
 # Created: May 20, 2024
-# Modified: May 22, 2024
+# Modified: January 29, 2025
 # Purpose: Reads tasks from a CalDAV calendar and prints a text to-do list
 
 # Pip Requirements:
@@ -69,11 +69,9 @@ taskswithpriority = sorted(taskswithpriority, key=lambda d: d["priority"], rever
 tasks = taskswithpriority + taskswithoutpriority
 
 for task in tasks:
-    if classification[task["class"]]: 
+    if classification[task["class"]]:
         print(f"- {status[task['status']]} - {task['summary']}")
-
-
 
 if showfooter:
     curtime = datetime.now(tz = timezone.utc).strftime("%b %-d, %Y, %H:%M %Z")
-    print(f"CTCL caldav2text.py - {cal_name} {curtime}")
+    print(f"caldav2text.py - {cal_name} {curtime}")

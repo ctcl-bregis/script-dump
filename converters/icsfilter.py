@@ -1,12 +1,13 @@
-# iCalendar file filter - CTCL 2024
-# Created: September 27, 2024
-# Modified: September 27, 2024
+# icsfilter.py
 # Purpose: Filters out calendar events from ics data passed from stdin then prints the result to stdout
+# Created: September 27, 2024
+# Modified: January 29, 2025
 
 import sys
 import os
 from icalendar import Calendar
 
+# TODO: have this defined by a command line argument
 titlebl = "ART.116"
 
 inp = sys.stdin

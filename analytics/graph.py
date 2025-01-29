@@ -1,6 +1,6 @@
-# Discord Message Graph - CTCL 2024
+# graph.py
 # Created: May 29, 2024
-# Modified: October 3, 2024
+# Modified: January 29, 2025
 # Purpose: Graphs the occurences that a term appears in a user's messages
 
 import matplotlib.pyplot as plt
@@ -19,13 +19,13 @@ dirs = os.listdir(".")
 dirs = [d for d in dirs if os.path.isdir(d)]
 
 msgs = []
-for sd in dirs: 
+for sd in dirs:
     print(f"Loading: {sd}/messages.json")
     with open(f"{sd}/messages.json") as f:
         messagesjson = json.loads(f.read())
 
     msgs += messagesjson
-     
+
 msgcount = len(msgs)
 print(f"Messages: {msgcount}")
 
@@ -35,16 +35,16 @@ for label, wordlist in words.items():
         msgyear = msg["Timestamp"][:7]
         if msgyear not in bymonth:
             bymonth[msgyear] = 0
-    
+
         # To-Do: have case sensitivity as an option
         if any(word.lower() in msg["Contents"].lower() for word in wordlist):
             bymonth[msgyear] += 1
- 
-        bymonth = dict(sorted(bymonth.items())) 
 
-    plt.plot(bymonth.keys(), bymonth.values(), label = f"{label}: {', '.join(wordlist)}" ) 
+        bymonth = dict(sorted(bymonth.items()))
 
-plt.legend() 
+    plt.plot(bymonth.keys(), bymonth.values(), label = f"{label}: {', '.join(wordlist)}" )
+
+plt.legend()
 plt.xlabel("Years")
 plt.ylabel("Occurences")
 plt.xticks(rotation=90)

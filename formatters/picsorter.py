@@ -1,10 +1,9 @@
-# picsorter.py - CTCL 2023-2024
+# picsorter.py
 # Purpose: Sorts pictures into directories based on file name
 # Created: October 17, 2023
-# Modified: October 14, 2024
-# License: The Unlicense
+# Modified: January 29, 2025
 
-# WARNING: This script may cause data loss in some cases, use at your own risk. 
+# WARNING: This script may cause data loss in some cases
 # The "name" option is for Android devices that use the P_YYYYMMDD_HHMMSS or V_YYYYMMDD_HHMMSS format such as the ASUS Zenfone 9 running Android 13 that I use.
 # The "namenums" option is for Android devices that use the YYYYMMDD_HHMMSS format such as the Samsung Galaxy S7 SM-G930F
 # The "meta" option is for Apple devices that have date information in the file's EXIF/metadata.
@@ -17,8 +16,8 @@ from PIL import Image, ExifTags
 def get_date_taken(path):
     try:
         exif = Image.open(path)._getexif()
-    except:
-        print(f"Unknown errror when processing {path}")
+    except Exception as e:
+        print(f"Unknown errror when processing {path}: {e}")
         return None
 
     if not exif:
@@ -139,10 +138,9 @@ elif args[1] == "meta":
     for name in onlyfiles:
         date = get_date_taken(name)
 
-        if date != None:
-            if date not in dates:
-                dates.append(date)
-    
+        if date != None and date not in dates:
+            dates.append(date)
+
     dirdicts = []
     for date in dates:
         splitdate = date.split(":")

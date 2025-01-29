@@ -1,10 +1,10 @@
-# BDF to pixel TTF font - CTCL 2024
-# Created: June 17, 2024
-# Modified: September 22, 2024
+# bdf2ttf.py
 # Purpose: Converts BDF format fonts into vector TTF fonts with glyphs made up of squares
+# Created: June 17, 2024
+# Modified: January 29, 2025
 
 # Warning: The following code is a total hack and may be unreadable
-# Warning 2: Currently, this script only works on Linux or other UNIX-like systems with /dev/shm 
+# Warning 2: Currently, this script only works on Linux or other UNIX-like systems with /dev/shm
 
 from bdfparser import Font
 import drawsvg as dw
@@ -16,9 +16,9 @@ import argparse
 parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files")
 parser.add_argument(type = str, help = "Path to file", required = True)
 # Overrides value in BDF file
-parser.add_argument(type = str, "-f", "--family-name", required = False)
+parser.add_argument("-f", "--family-name", type = str, required = False)
 # Overrides value in BDF file
-parser.add_argument(type = str, "-t", "--font-type", help = "Font type, e.g. \"Bold\", \"Normal\"", required = False)
+parser.add_argument("-t", "--font-type", help = "Font type, e.g. \"Bold\", \"Normal\"", required = False, type = str)
 args = parser.parse_args()
 
 infile = args.p
@@ -35,10 +35,10 @@ for x, y in glyphs.items():
 
     if glyph_width > 1:
         #glyphrep = str(glyph.draw().crop(glyph.meta["bbw"], glyph_height, glyph.meta["bbxoff"], 0))
-   
+
         rows = []
         for i in range((glyph_height - glyph.meta["bbh"]) - int(bdffont.props["font_descent"]) - glyph.meta["bbyoff"]):
-            rows.append("0" * glyph.meta["dwx0"])       
+            rows.append("0" * glyph.meta["dwx0"])
 
         for datarow in glyph.meta["hexdata"]:
             if datarow == "00":
@@ -58,12 +58,12 @@ for x, y in glyphs.items():
                 xpos += 64
             xpos = 0
             ypos += 64
-    
+
         newfilepath = "/dev/shm/" + y[0] + ".svg"
-        
+
         d.save_svg(newfilepath)
 
-        
+
 
         svgglyphs[y[1]] = {"file": newfilepath, "meta": glyph.meta, "isempty": isempty}
 
