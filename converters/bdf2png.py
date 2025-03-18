@@ -1,8 +1,3 @@
-# bdf2png.py
-# Created: March 18, 2025
-# Modified: March 18, 2025
-# Purpose: Converts a BDF font into an image containing all glyphs
-
 import sys
 import argparse
 import math
@@ -28,7 +23,7 @@ glyphy = bdffont.headers["fbby"]
 imgx = glyphx * glyphsperrow
 imgy = glyphy * (math.ceil(len(glyphs) / glyphsperrow) + 1)
 
-img = Image.new(mode = "RGBA", size = (imgx, imgy), color = (0,0,0,255))
+img = Image.new(mode = "RGBA", size = (imgx, imgy), color = (0,0,0,0))
 
 glyphnum = 0
 for name, data in glyphs.items():
@@ -51,7 +46,7 @@ for name, data in glyphs.items():
     else:
         continue
 
-    glim = Image.new("RGBA", (glyph.meta["dwx0"], glyph_height), (0,0,0,255))
+    glim = Image.new("RGBA", (glyph.meta["dwx0"], glyph_height), (0,0,0,0))
     gldw = ImageDraw.Draw(glim)
 
     pixarray = []
