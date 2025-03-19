@@ -1,3 +1,8 @@
+# bdf2png.py
+# Created: March 18, 2025
+# Modififed: March 19, 2025
+# Purpose: Generates a character map image from a BDF font file
+
 import sys
 import argparse
 import math
@@ -5,11 +10,12 @@ from bdfparser import Font
 from PIL import Image, ImageDraw
 
 parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files")
-parser.add_argument("p", type = str, help = "Path to file")
-parser.add_argument("o", type = str, help = "Output path")
+parser.add_argument("input", type = str, help = "Path to file")
+parser.add_argument("output", type = str, help = "Output path")
 args = parser.parse_args()
 
-infile = args.p
+infile = args.input
+outfile = args.output
 
 bdffont = Font(infile)
 
@@ -31,11 +37,11 @@ for name, data in glyphs.items():
     glyph = bdffont.glyphbycp(data[1])
 
     glyph_width = glyph.meta["dwx0"]
-    glyph_height = int(bdffont.props["pixel_size"])
+    glyph_height = glyphy
 
     if glyph_width > 1:
         rows = []
-        for i in range((glyph_height - glyph.meta["bbh"]) - int(bdffont.props["font_descent"]) - glyph.meta["bbyoff"]):
+        for i in range((glyph_height - glyph.meta["bbh"]) - int(bdffont.props["font_descent"])):
             rows.append("0" * glyph.meta["dwx0"])
 
         for datarow in glyph.meta["hexdata"]:
@@ -50,8 +56,8 @@ for name, data in glyphs.items():
     gldw = ImageDraw.Draw(glim)
 
     pixarray = []
-    for y in range(glyph_height - 1):
-        for x in range(glyph.meta["dwx0"] - 1):
+    for y in range(glyph_height):
+        for x in range(glyphx):
             if rows[y][x] == "1":
                 pixarray.append((x,y))
 
@@ -59,12 +65,10 @@ for name, data in glyphs.items():
     py = (math.ceil(glyphnum / glyphsperrow)) * glyphy
     px = (glyphnum - ((glyphnum // glyphsperrow) * glyphsperrow)) * glyphx
 
-    print(px)
-
     glyphpos = (px, py)
     img.paste(glim, glyphpos)
 
-img.show()
+img.save(outfile)
 
 
 
