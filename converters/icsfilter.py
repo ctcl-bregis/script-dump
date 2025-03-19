@@ -1,7 +1,7 @@
 # icsfilter.py
 # Purpose: Filters out calendar events from ics data passed from stdin then prints the result to stdout
 # Created: September 27, 2024
-# Modified: January 29, 2025
+# Modified: March 10, 2025
 
 import sys
 import os
@@ -22,4 +22,6 @@ for component in cal.walk():
         if not titlebl in str(component.get("SUMMARY")):
             newcal.add_component(component)
 
+# Print is used here so the output can be piped to another command
+# e.g. python3 icsfilter.py > out.ics
 print(newcal.to_ical().decode("utf-8"))
