@@ -1,18 +1,15 @@
 # wav2flac.py
 # Created: October 2, 2023
-# Modified: January 29, 2025
-# Purpose: Converts .wav files to .flac
+# Modified: March 24, 2025
+# Purpose: Converts .wav files to .flac using ffmpeg
 
-from pydub import AudioSegment
-from os import listdir
-from os.path import isfile, join
+import os
 
 # Get all files in the current directory
-currentfiles = [f for f in listdir(".") if isfile(join(".", f))]
+currentfiles = [f for f in os.listdir(".") if os.path.isfile(f)]
 # Get only .wav files
 currentfiles = [i for i in currentfiles if i.endswith(".wav")]
 
 for f in currentfiles:
     print(f"Processing file: {f}")
-    track = AudioSegment.from_wav(f)
-    track.export(f.replace(".wav", ".flac"), format = "flac")
+    os.system(f"ffmpeg -i \"{f}\" -c:a flac \"{f[:-4]}.flac\"")
