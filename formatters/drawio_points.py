@@ -1,10 +1,10 @@
 # drawio_points.py
 # Purpose: Creates list of connection points for each side of a rectangle
 # Created: July 18, 2024
-# Modifeid: July 19, 2024
+# Modified: May 26, 2025
 import argparse
 
-parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files")
+parser = argparse.ArgumentParser(description = "Creates list of connection points for each side of a rectangle for use in draw.io")
 parser.add_argument("w", metavar = "W", type = int, help = "Width")
 parser.add_argument("h", metavar = "H", type = int, help = "Height")
 parser.add_argument("g", metavar = "G", type = int, default = 10, help = "Grid")
