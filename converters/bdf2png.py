@@ -1,6 +1,6 @@
 # bdf2png.py
 # Created: March 18, 2025
-# Modififed: April 28, 2025
+# Modified: May 26, 2025
 # Purpose: Generates a character map image from a BDF font file
 
 import sys
@@ -14,14 +14,14 @@ parser = argparse.ArgumentParser(description = "Converts BDF files to SVG files"
 parser.add_argument("input", type = str, help = "Path to file")
 parser.add_argument("output", type = str, help = "Output path")
 parser.add_argument("json", type = str, help = "JSON map output path")
+parser.add_argument("perrow", type = int, help = "Glyphs per row", default = 64)
 args = parser.parse_args()
 
 infile = args.input
 outfile = args.output
+glyphsperrow = args.perrow
 
 bdffont = Font(infile)
-
-glyphsperrow = 64
 
 glyphs = bdffont.glyphs
 
@@ -32,7 +32,6 @@ imgx = glyphx * glyphsperrow
 imgy = glyphy * (math.ceil(len(glyphs) / glyphsperrow) + 1)
 
 img = Image.new(mode = "RGBA", size = (imgx, imgy), color = (0,0,0,0))
-
 
 glyphmap = {}
 glyphnum = 0

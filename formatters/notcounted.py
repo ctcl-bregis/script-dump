@@ -1,7 +1,10 @@
 # notcounted.py
 # Purpose: Formats a list of GitHub repositories to exclude from Most Used Languages
 # Created: December 25, 2024
-# Modified: January 29, 2025
+# Modified: May 26, 2025
+
+# Example user
+user = "ctcl-bregis"
 
 # Example list
 repos = [
@@ -16,6 +19,6 @@ repos = [
     "pixel-fonts", # C files only store glyphs
 ]
 
-base_url = "https://github-readme-stats.vercel.app/api/top-langs/?username=ctcl-bregis&size_weight=1&count_weight=0&theme=transparent&langs_count=8&exclude_repo="
+base_url = f"https://github-readme-stats.vercel.app/api/top-langs/?username={user}&size_weight=1&count_weight=0&theme=transparent&langs_count=8&exclude_repo="
 
 print(base_url + ",".join(repos))

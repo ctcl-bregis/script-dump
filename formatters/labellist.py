@@ -1,4 +1,4 @@
-# labelist.py
+# labellist.py
 # Purpose: Find all labels defined in a hierarchical KiCAD schematic
 # Created: May 26, 2025
 # Modified: May 26, 2025

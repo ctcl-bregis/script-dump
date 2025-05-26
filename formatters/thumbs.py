@@ -1,7 +1,7 @@
 # Sprite to Thumbnails
 # Purpose: Converts sprites into thumbnails
 # Created: July 22, 2024
-# Modified: January 29, 2025
+# Modified: May 26, 2025
 
 from PIL import Image
 import os
@@ -25,7 +25,6 @@ elif os.path.exists("thumbs") and not os.path.isdir("thumbs"):
 for path in filelist:
     sprite = Image.open(os.path.join("sprites", path))
     thumb = Image.new("RGB", (512,512), (0,0,0,255))
-
 
     # thumbnail can only resize images to sizes smaller than the original so the image is scaled up first then scaled back down with thumbnail()
     wpercent = (512 / float(sprite.size[0]))

@@ -1,7 +1,7 @@
 # graph.py
 # Created: May 29, 2024
-# Modified: January 29, 2025
-# Purpose: Graphs the occurences that a term appears in a user's messages
+# Modified: May 26, 2025
+# Purpose: Graphs the occurences that a term appears in a user's messages from a Discord data dump
 
 import matplotlib.pyplot as plt
 import datetime
